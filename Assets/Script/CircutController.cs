@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CircutController : MonoBehaviour
 {
-    [SerializeField] private CircutPartController[] circut = null;
+    [SerializeField] private CircutPartController[] parts = null;
     public void BreakAllCircuts()
     {
         if (transform.parent != null)
@@ -12,9 +12,10 @@ public class CircutController : MonoBehaviour
             transform.parent = null;
         }
 
-        foreach (CircutPartController c in circut)
+        foreach (CircutPartController c in parts)
         {
-            c.BreakingPlatforms();
+            c.BreakingCircuts();
+            FindObjectOfType<PlayerController>().PlusScore();
         }
 
         StartCoroutine(RemoveParts());
@@ -22,7 +23,7 @@ public class CircutController : MonoBehaviour
 
     IEnumerator RemoveParts()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.6f);
         Destroy(gameObject);
     }
 }
