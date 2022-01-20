@@ -20,33 +20,33 @@ public class PlayerController : MonoBehaviour
         Finish
     }
     public PlayerState playerState = PlayerState.Prepare;
-    private int currentBrokenPlatforms, totalPlatforms;
+    private int currentBrokenCircuts, totalCircuts;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        currentBrokenPlatforms = 0;
+        currentBrokenCircuts = 0;
     }
 
     void Start()
     {
-        totalPlatforms = FindObjectsOfType<CircutController>().Length;
+        totalCircuts = FindObjectsOfType<CircutController>().Length;
     }
 
     void Update()
     {
-        if (playerState == PlayerState.Prepare && Input.GetMouseButton(0))
-        {
-            playerState = PlayerState.Play;
-        }
         if (playerState == PlayerState.Play)
         {
             ClickCheck();
+            //OverpowerCheck();
         }
 
         if (playerState == PlayerState.Finish)
         {
-
+            if (Input.GetMouseButtonDown(0))
+            {
+                FindObjectOfType<Levelling>().IncreaseLevel();
+            }
         }
     }
     void FixedUpdate()
@@ -84,7 +84,7 @@ public class PlayerController : MonoBehaviour
 
     public void PlusScore()
     {
-        currentBrokenPlatforms++;
+        currentBrokenCircuts++;
         ScoringController.instance.Scoring(1);
     }
         void OnCollisionEnter(Collision target)
@@ -121,7 +121,7 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
-       
+       FindObjectOfType<GameController>().LevelSliderFill(currentBrokenCircuts / (float)totalCircuts);
 
         if (target.gameObject.CompareTag("WinLocation") && playerState == PlayerState.Play)
         {

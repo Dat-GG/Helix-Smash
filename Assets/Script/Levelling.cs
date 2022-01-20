@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Levelling : MonoBehaviour
 {
@@ -84,5 +85,10 @@ public class Levelling : MonoBehaviour
                     selectedCircut[i] = allCircut[i + 10];
                 break;
         }
+    }
+    public void IncreaseLevel()
+    {
+        PlayerPrefs.SetInt("Level", PlayerPrefs.GetInt("Level") + 1);
+        SceneManager.LoadScene(0);
     }
 }
