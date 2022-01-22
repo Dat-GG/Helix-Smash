@@ -10,7 +10,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool isClicked, isOverPowered;
     [SerializeField] private float moveSpeed = 700f;
     private float speedLimit = 6f;
-    [SerializeField] private float bounceSpeed = 275f;
+    [SerializeField] private float bounceSpeed = 350f;
+    public GameObject overpowerBar;
+    public Image overpowerFill;
+    public GameObject fireEffect;
+    public GameObject splashEffect;
 
     public enum PlayerState
     {
@@ -35,10 +39,11 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        //BallMovement();
         if (playerState == PlayerState.Play)
         {
             ClickCheck();
-            //OverpowerCheck();
+            OverpowerCheck();
         }
 
         if (playerState == PlayerState.Finish)
@@ -85,16 +90,30 @@ public class PlayerController : MonoBehaviour
     public void PlusScore()
     {
         currentBrokenCircuts++;
-        ScoringController.instance.Scoring(1);
+        if (!isOverPowered)
+        {
+            ScoringController.instance.Scoring(1);
+        }
+        else
+        {
+            ScoringController.instance.Scoring(2);
+        }
     }
         void OnCollisionEnter(Collision target)
-    {
+        {
         if (!isClicked)
         {
             rb.velocity = new Vector3(0, bounceSpeed * Time.deltaTime, 0);
             if (!target.gameObject.CompareTag("Finish"))
             {
-
+                GameObject splash = Instantiate(splashEffect);
+                splash.transform.SetParent(target.transform);
+                splash.transform.localEulerAngles = new Vector3(90, Random.Range(0, 359), 0);
+                float randomScale = Random.Range(0.15f, 0.20f);
+                splash.transform.localScale = new Vector3(randomScale, randomScale, 1);
+                splash.transform.position =
+                   new Vector3(transform.position.x, transform.position.y - 0.3f, transform.position.z);
+                splash.GetComponent<SpriteRenderer>().color = GetComponent<MeshRenderer>().material.color;
             }
         }
         else
@@ -121,13 +140,51 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
-       FindObjectOfType<GameController>().LevelSliderFill(currentBrokenCircuts / (float)totalCircuts);
+         FindObjectOfType<GameController>().LevelSliderFill(currentBrokenCircuts / (float)totalCircuts);
 
-        if (target.gameObject.CompareTag("WinLocation") && playerState == PlayerState.Play)
-        {
-            playerState = PlayerState.Finish;
-
+                if (target.gameObject.CompareTag("WinLocation") && playerState == PlayerState.Play)
+                {
+                     playerState = PlayerState.Finish;
+                }
         }
+    void OverpowerCheck()
+    {
+        if (isOverPowered)
+        {
+            overpowerBuildUp -= Time.deltaTime * .3f;
+            if (!fireEffect.activeInHierarchy)
+                fireEffect.SetActive(true);
+        }
+        else
+        {
+            if (fireEffect.activeInHierarchy)
+               fireEffect.SetActive(false);
+            if (isClicked)
+                overpowerBuildUp += Time.deltaTime * .8f;
+            else
+                overpowerBuildUp -= Time.deltaTime * .5f;
+        }
+
+        if (overpowerBuildUp >= 0.3f || overpowerFill.color == Color.red)
+            overpowerBar.SetActive(true);
+        else
+            overpowerBar.SetActive(false);
+
+        if (overpowerBuildUp >= 1)
+        {
+            overpowerBuildUp = 1;
+            isOverPowered = true;
+            overpowerFill.color = Color.red;
+        }
+        else if (overpowerBuildUp <= 0)
+        {
+            overpowerBuildUp = 0;
+            isOverPowered = false;
+            overpowerFill.color = Color.white;
+        }
+
+        if (overpowerBar.activeInHierarchy)
+            overpowerFill.fillAmount = overpowerBuildUp;
     }
 
 }
