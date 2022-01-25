@@ -7,6 +7,6 @@ public class TowerRation : MonoBehaviour
     public float rotationspeed;
     void Update()
     {
-        this.transform.Rotate(0, rotationspeed * Time.deltaTime, 0);
+        this.transform.Rotate(0, rotationspeed * Time.smoothDeltaTime, 0);
     }
 }

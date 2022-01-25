@@ -8,13 +8,16 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rb;
     private float overpowerBuildUp;
     [SerializeField] private bool isClicked, isOverPowered;
-    [SerializeField] private float moveSpeed = 700f;
+    [SerializeField] private float moveSpeed = 500f;
     private float speedLimit = 6f;
-    [SerializeField] private float bounceSpeed = 350f;
+    [SerializeField] private float bounceSpeed = 250f;
+    [SerializeField] private float StretchSquashFactor = 4;
     public GameObject overpowerBar;
     public Image overpowerFill;
     public GameObject fireEffect;
     public GameObject splashEffect;
+    private float diameter;
+    private Vector3 lastPos;
 
     public enum PlayerState
     {
@@ -35,6 +38,8 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         totalCircuts = FindObjectsOfType<CircutController>().Length;
+        diameter = transform.localScale.x;
+        lastPos = transform.position;
     }
 
     void Update()
@@ -53,6 +58,9 @@ public class PlayerController : MonoBehaviour
                 FindObjectOfType<Levelling>().IncreaseLevel();
             }
         }
+        float yScale = diameter + (transform.position.y - lastPos.y) * StretchSquashFactor;
+        transform.localScale = new Vector3(transform.localScale.x, yScale, transform.localScale.z);
+        lastPos = transform.position;
     }
     void FixedUpdate()
     {
@@ -103,7 +111,7 @@ public class PlayerController : MonoBehaviour
         {
         if (!isClicked)
         {
-            rb.velocity = new Vector3(0, bounceSpeed * Time.deltaTime, 0);
+            rb.velocity = new Vector3(0, bounceSpeed * Time.smoothDeltaTime, 0);
             if (!target.gameObject.CompareTag("Finish"))
             {
                 GameObject splash = Instantiate(splashEffect);
@@ -151,7 +159,7 @@ public class PlayerController : MonoBehaviour
     {
         if (isOverPowered)
         {
-            overpowerBuildUp -= Time.deltaTime * .3f;
+            overpowerBuildUp -= Time.deltaTime * .5f;
             if (!fireEffect.activeInHierarchy)
                 fireEffect.SetActive(true);
         }
