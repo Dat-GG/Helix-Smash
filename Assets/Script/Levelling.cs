@@ -28,8 +28,8 @@ public class Levelling : MonoBehaviour
         playerMesh.material.color = plateMaterial.color;
 
         level = PlayerPrefs.GetInt("Level", 1);
-        if (level > 20)
-            circutsAddition = 0;
+        //if (level > 20)
+        //    circutsAddition = 0;
 
         CircutSelection();
 

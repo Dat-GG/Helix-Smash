@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool isClicked, isOverPowered;
     [SerializeField] private float moveSpeed = 500f;
     private float speedLimit = 6f;
-    [SerializeField] private float bounceSpeed = 250f;
+    [SerializeField] private float bounceSpeed = 500f;
     [SerializeField] private float StretchSquashFactor = 4;
     public GameObject overpowerBar;
     public Image overpowerFill;
@@ -44,7 +44,6 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        //BallMovement();
         if (playerState == PlayerState.Play)
         {
             ClickCheck();
@@ -112,6 +111,7 @@ public class PlayerController : MonoBehaviour
         if (!isClicked)
         {
             rb.velocity = new Vector3(0, bounceSpeed * Time.smoothDeltaTime, 0);
+            Physics.gravity = new Vector3(0, -18, 0);
             if (!target.gameObject.CompareTag("Finish"))
             {
                 GameObject splash = Instantiate(splashEffect);
