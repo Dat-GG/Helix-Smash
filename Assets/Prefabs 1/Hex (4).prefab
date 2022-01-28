@@ -217,6 +217,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 1.5
+  splashEffect: {fileID: 7445468067604693305, guid: 1c5d69cea2a8a404bb5471307921c788,
+    type: 3}
 --- !u!1001 &5610100567126506851
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -378,6 +380,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 1.5
+  splashEffect: {fileID: 7445468067604693305, guid: 1c5d69cea2a8a404bb5471307921c788,
+    type: 3}
 --- !u!1001 &5746301931568900124
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -539,6 +543,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 1.5
+  splashEffect: {fileID: 7445468067604693305, guid: 1c5d69cea2a8a404bb5471307921c788,
+    type: 3}
 --- !u!1001 &5943095939148873035
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -700,6 +706,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 1.5
+  splashEffect: {fileID: 7445468067604693305, guid: 1c5d69cea2a8a404bb5471307921c788,
+    type: 3}
 --- !u!1001 &6852554310735324635
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -861,6 +869,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 1.5
+  splashEffect: {fileID: 7445468067604693305, guid: 1c5d69cea2a8a404bb5471307921c788,
+    type: 3}
 --- !u!1001 &8626465025589220382
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1022,3 +1032,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 1.5
+  splashEffect: {fileID: 7445468067604693305, guid: 1c5d69cea2a8a404bb5471307921c788,
+    type: 3}

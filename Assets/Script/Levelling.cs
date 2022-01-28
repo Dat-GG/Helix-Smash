@@ -47,10 +47,10 @@ public class Levelling : MonoBehaviour
             normalcircut.transform.position = new Vector3(0, i, 0);
             normalcircut.transform.eulerAngles = new Vector3(0, i * rotationSpeed, 0);
 
-            //if (Mathf.Abs(i) >= level * .4f && Mathf.Abs(i) <= level * .8f)
-            //{
-            //    normalcircut.transform.eulerAngles += Vector3.up * 180;
-            //}
+            if (Mathf.Abs(i) >= level * .4f && Mathf.Abs(i) <= level * .8f)
+            {
+                normalcircut.transform.eulerAngles += Vector3.up * 180;
+            }
 
             normalcircut.transform.parent = FindObjectOfType<TowerRation>().transform;
         }

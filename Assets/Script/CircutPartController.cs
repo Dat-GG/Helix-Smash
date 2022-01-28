@@ -9,6 +9,7 @@ public class CircutPartController : MonoBehaviour
     public static CircutPartController circutController;
     private Collider _collider;
     [SerializeField] private float moveSpeed = 1.5f;
+    public GameObject splashEffect;
 
     void Awake()
     {
@@ -43,6 +44,23 @@ public class CircutPartController : MonoBehaviour
         {
             transform.GetChild(i).SetParent(null);
             i--;
+        }
+    }
+    private void OnCollisionEnter(Collision target)
+    {
+        if (target.gameObject.CompareTag("Player"))
+        {
+
+            GameObject splash = Instantiate(splashEffect);
+            splash.transform.SetParent(transform);
+            splash.transform.localEulerAngles = new Vector3(90, Random.Range(0, 359), 0);
+            float randomScale = Random.Range(0.15f, 0.20f);
+            splash.transform.localScale = new Vector3(randomScale, randomScale, 1);
+            var a = target.gameObject.transform;
+            splash.transform.position = new Vector3(a.localPosition.x, a.localPosition.y - 0.36f, a.localPosition.z);
+               //new Vector3(transform.localPosition.x, transform.localPosition.y + 0.5f, transform.localPosition.z);
+            splash.GetComponent<SpriteRenderer>().color = GetComponent<MeshRenderer>().material.color;
+
         }
     }
 }

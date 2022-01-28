@@ -37,9 +37,10 @@ public class GameController : MonoBehaviour
 
     private void UIManagement()
     {
-        if (Input.GetMouseButtonDown(0) && player.playerState == PlayerController.PlayerState.Prepare)
+        if (/*Input.GetMouseButtonDown(0) && player.playerState == PlayerController.PlayerState.Prepare*/
+            player.playerState == PlayerController.PlayerState.Play)
         {
-            player.playerState = PlayerController.PlayerState.Play;
+            
             Home.SetActive(false);
             inGame.SetActive(true);
             finish.SetActive(false);
