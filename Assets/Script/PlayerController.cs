@@ -11,14 +11,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float moveSpeed = 500f;
     private float speedLimit = 15f;
     [SerializeField] private float bounceSpeed = 480f;
-    //[SerializeField] private float StretchSquashFactor = 0.2f;
     public GameObject overpowerBar;
     public Image overpowerFill;
     public GameObject fireEffect;
     public GameObject splashEffect;
     public int count;
-    //private float diameter;
-    //private Vector3 lastPos;
 
     public enum PlayerState
     {
@@ -39,8 +36,6 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         totalCircuts = FindObjectsOfType<CircutController>().Length;
-        //diameter = transform.localScale.x;
-        //lastPos = transform.position;
         count = 0;
     }
 
@@ -59,11 +54,6 @@ public class PlayerController : MonoBehaviour
                 FindObjectOfType<Levelling>().IncreaseLevel();
             }
         }
-        //float yScale = diameter + (transform.position.y - lastPos.y) * StretchSquashFactor;
-        //transform.localScale = new Vector3(transform.localScale.x, yScale, transform.localScale.z);
-        //lastPos = transform.position;
-
-
     }
     void FixedUpdate()
     {
@@ -111,23 +101,12 @@ public class PlayerController : MonoBehaviour
         }
     }
     void OnCollisionEnter(Collision target)
-        {
+    {
         if (!isClicked)
         {
             rb.velocity = new Vector3(0, bounceSpeed * Time.smoothDeltaTime, 0);
             Physics.gravity = new Vector3(0, -30, 0);
             playerState = PlayerState.Play;
-            //if (!target.gameObject.CompareTag("Finish"))
-            //{
-            //    GameObject splash = Instantiate(splashEffect);
-            //    splash.transform.SetParent(target.transform);
-            //    splash.transform.localEulerAngles = new Vector3(90, Random.Range(0, 359), 0);
-            //    float randomScale = Random.Range(0.15f, 0.20f);
-            //    splash.transform.localScale = new Vector3(randomScale, randomScale, 1);
-            //    splash.transform.position =
-            //       new Vector3(transform.position.x, transform.position.y - 0.3f, transform.position.z);
-            //    splash.GetComponent<SpriteRenderer>().color = GetComponent<MeshRenderer>().material.color;
-            //}
         }
         else
         {
@@ -140,10 +119,6 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                //if (target.gameObject.tag == "GoodPart")
-                //{
-                //    target.transform.parent.GetComponent<CircutController>().BreakAllCircuts();
-                //}
                 if (target.gameObject.tag == "GoodPart")
                 {
                     target.transform.parent.GetComponent<CircutController>().BreakAllCircuts();
@@ -152,13 +127,6 @@ public class PlayerController : MonoBehaviour
                         count++;
                     }
                 }
-
-                //if (target.gameObject.tag == "BadPart")
-                //{
-                //    rb.isKinematic = true;
-                //    transform.GetChild(0).gameObject.SetActive(false);
-                //    playerState = PlayerState.Dead;
-                //}
                 if (target.gameObject.tag == "BadPart")
                 {
                     if (count == 1)

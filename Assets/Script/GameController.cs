@@ -13,7 +13,6 @@ public class GameController : MonoBehaviour
     private Material playerMaterial;
     public Text currentLevelText, nextLevelText, finishLevelText, gameOverScoreText, gameOverBestText;
     private PlayerController player;
-
     void Awake()
     {
         playerMaterial = FindObjectOfType<PlayerController>().GetComponent<MeshRenderer>().material;
@@ -37,10 +36,10 @@ public class GameController : MonoBehaviour
 
     private void UIManagement()
     {
-        if (/*Input.GetMouseButtonDown(0) && player.playerState == PlayerController.PlayerState.Prepare*/
-            player.playerState == PlayerController.PlayerState.Play)
+        if (Input.GetMouseButtonDown(0) && player.playerState == PlayerController.PlayerState.Prepare)
+            player.playerState = PlayerController.PlayerState.Play;
         {
-            
+
             Home.SetActive(false);
             inGame.SetActive(true);
             finish.SetActive(false);
