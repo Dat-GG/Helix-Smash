@@ -4,18 +4,20 @@ using UnityEngine;
 
 public class CamFollow : MonoBehaviour
 {
-    public Transform Player;
-    public Vector3 offset;
-
-    void Start()
+    [SerializeField] private GameObject player;
+    public float heightGap = 1f;
+    private Vector3 _lastPos;
+    private void Start()
     {
-        offset = transform.position - Player.position;
+        _lastPos = transform.position;
     }
-
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        Vector3 newpos = Player.position + offset;
-        transform.position = newpos;
+        var pos = transform.position;
+
+        if (!(pos.y - heightGap >= player.transform.position.y)) return;
+        var target = new Vector3(pos.x, player.transform.position.y + heightGap, pos.z);
+        pos = Vector3.Lerp(_lastPos, target, Time.time * 0.5f);
+        transform.position = pos;
     }
 }

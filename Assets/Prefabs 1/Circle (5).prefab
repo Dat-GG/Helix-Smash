@@ -225,7 +225,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 1.5
-  splashEffect: {fileID: 8567251978236273390, guid: 2a758bc2f0753fa41b2dfdceb6328eb1,
+  splashEffect: {fileID: 5894886293615907039, guid: 2a758bc2f0753fa41b2dfdceb6328eb1,
     type: 3}
 --- !u!1001 &2253860309536416395
 PrefabInstance:
@@ -396,7 +396,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 1.5
-  splashEffect: {fileID: 8567251978236273390, guid: 2a758bc2f0753fa41b2dfdceb6328eb1,
+  splashEffect: {fileID: 5894886293615907039, guid: 2a758bc2f0753fa41b2dfdceb6328eb1,
     type: 3}
 --- !u!1001 &2386136849330084812
 PrefabInstance:
@@ -567,7 +567,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 1.5
-  splashEffect: {fileID: 8567251978236273390, guid: 2a758bc2f0753fa41b2dfdceb6328eb1,
+  splashEffect: {fileID: 5894886293615907039, guid: 2a758bc2f0753fa41b2dfdceb6328eb1,
     type: 3}
 --- !u!1001 &3409671077475429103
 PrefabInstance:
@@ -738,7 +738,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 1.5
-  splashEffect: {fileID: 8567251978236273390, guid: 2a758bc2f0753fa41b2dfdceb6328eb1,
+  splashEffect: {fileID: 5894886293615907039, guid: 2a758bc2f0753fa41b2dfdceb6328eb1,
     type: 3}
 --- !u!1001 &4047095679602987232
 PrefabInstance:
@@ -909,7 +909,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 1.5
-  splashEffect: {fileID: 8567251978236273390, guid: 2a758bc2f0753fa41b2dfdceb6328eb1,
+  splashEffect: {fileID: 5894886293615907039, guid: 2a758bc2f0753fa41b2dfdceb6328eb1,
     type: 3}
 --- !u!1001 &7775991768945925532
 PrefabInstance:
@@ -1080,5 +1080,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 1.5
-  splashEffect: {fileID: 8567251978236273390, guid: 2a758bc2f0753fa41b2dfdceb6328eb1,
+  splashEffect: {fileID: 5894886293615907039, guid: 2a758bc2f0753fa41b2dfdceb6328eb1,
     type: 3}

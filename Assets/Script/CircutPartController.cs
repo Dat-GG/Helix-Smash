@@ -50,6 +50,7 @@ public class CircutPartController : MonoBehaviour
     {
         if (target.gameObject.CompareTag("Player"))
         {
+
             GameObject splash = Instantiate(splashEffect);
             splash.transform.SetParent(transform);
             splash.transform.localEulerAngles = new Vector3(90, Random.Range(0, 359), 0);
@@ -59,7 +60,13 @@ public class CircutPartController : MonoBehaviour
             splash.transform.position = new Vector3(a.localPosition.x, a.localPosition.y - 0.36f, a.localPosition.z);
             //new Vector3(transform.localPosition.x, transform.localPosition.y + 0.5f, transform.localPosition.z);
             splash.GetComponent<SpriteRenderer>().color = GetComponent<MeshRenderer>().material.color;
-            
         }
+            //StartCoroutine(RemoveSplash());
+        //}
+        //IEnumerator RemoveSplash()
+        //{
+        //    yield return new WaitForSeconds(0.6f);
+        //    Destroy(splashEffect);
+        //}
     }
 }

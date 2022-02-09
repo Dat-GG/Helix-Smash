@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     private float overpowerBuildUp;
     [SerializeField] private bool isClicked, isOverPowered;
     [SerializeField] private float moveSpeed = 500f;
-    private float speedLimit = 15f;
+    private float speedLimit = 30f;
     [SerializeField] private float bounceSpeed = 480f;
     public GameObject overpowerBar;
     public Image overpowerFill;
@@ -24,7 +24,8 @@ public class PlayerController : MonoBehaviour
         Dead,
         Finish
     }
-    public PlayerState playerState = PlayerState.Prepare;
+    public PlayerState _state = PlayerState.Prepare;
+    //public PlayerState playerState = PlayerState.Prepare;
     private int currentBrokenCircuts, totalCircuts;
 
     void Awake()
@@ -41,18 +42,32 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (playerState == PlayerState.Play)
-        {
-            ClickCheck();
-            OverpowerCheck();
-        }
+        //if (playerState == PlayerState.Play)
+        //{
+        //    ClickCheck();
+        //    OverpowerCheck();
+        //}
 
-        if (playerState == PlayerState.Finish)
+        if (_state == PlayerState.Finish)
         {
             if (Input.GetMouseButtonDown(0))
             {
                 FindObjectOfType<Levelling>().IncreaseLevel();
             }
+        }
+        switch (_state)
+        {
+            case PlayerState.Prepare:
+                break;
+            case PlayerState.Play:
+                ClickCheck();
+                OverpowerCheck();               
+                break;
+            case PlayerState.Dead:
+                break;
+            case PlayerState.Finish:
+                break;
+
         }
     }
     void FixedUpdate()
@@ -62,13 +77,13 @@ public class PlayerController : MonoBehaviour
 
     private void BallMovement()
     {
-        if (playerState == PlayerState.Play)
-        {
+        //if (playerState == PlayerState.Play)
+        //{
             if (Input.GetMouseButton(0) && isClicked == true)
             {
-                rb.velocity = new Vector3(0, -moveSpeed * Time.fixedDeltaTime, 0);
+                rb.velocity = new Vector3(0, -moveSpeed * Time.smoothDeltaTime, 0);
             }
-        }
+        //}
 
         if (rb.velocity.y > speedLimit)
         {
@@ -105,8 +120,8 @@ public class PlayerController : MonoBehaviour
         if (!isClicked)
         {
             rb.velocity = new Vector3(0, bounceSpeed * Time.smoothDeltaTime, 0);
-            Physics.gravity = new Vector3(0, -30, 0);
-            playerState = PlayerState.Play;
+            Physics.gravity = new Vector3(0, -50, 0);
+            _state = PlayerState.Play;
         }
         else
         {
@@ -130,22 +145,23 @@ public class PlayerController : MonoBehaviour
                 if (target.gameObject.tag == "BadPart")
                 {
                     if (count == 1)
+                    {
                         count--;
+                    }
                     else
                     {
                         rb.isKinematic = true;
                         transform.GetChild(0).gameObject.SetActive(false);
-                        playerState = PlayerState.Dead;
+                        ChangeState(PlayerState.Dead);
                     }
                 }
             }
         }
          FindObjectOfType<GameController>().LevelSliderFill(currentBrokenCircuts / (float)totalCircuts);
 
-                if (target.gameObject.CompareTag("WinLocation") && playerState == PlayerState.Play)
-                {
-                     playerState = PlayerState.Finish;
-                }
+        if (target.gameObject.CompareTag("WinLocation") && _state == PlayerState.Play)
+               ChangeState(PlayerState.Finish);
+        
     }
     void OverpowerCheck()
     {
@@ -186,7 +202,43 @@ public class PlayerController : MonoBehaviour
         if (overpowerBar.activeInHierarchy)
             overpowerFill.fillAmount = overpowerBuildUp;
     }
+    private void ChangeState(PlayerState newstate)
+    {
+        if (newstate == _state) return;
+        ExitCurrentState();
+        _state = newstate;
+        EnterNewState();
+    }
+    private void EnterNewState()
+    {
+        switch (_state)
+        {
+            case PlayerState.Prepare:
+                break;
+            case PlayerState.Play:
+                break;
+            case PlayerState.Dead:
+                break;
+            case PlayerState.Finish:
+                break;
 
+        }
+    }
+    private void ExitCurrentState()
+    {
+        switch (_state)
+        {
+            case PlayerState.Prepare:
+                break;
+            case PlayerState.Play:
+                break;
+            case PlayerState.Dead:
+                break;
+            case PlayerState.Finish:
+                break;
+
+        }
+    }
 }
 
 
